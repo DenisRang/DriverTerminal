@@ -54,7 +54,7 @@ public abstract class BaseActivityView<T extends BasePresenter> extends AppCompa
 
     private void restoreOrCreatePresenter() {
         isRestoredPresenter = true;
-        // try to get a cached presenter
+        // try to get a cached presenterd
         presenter = presenterCache.getPresenter(getClass().getName());
         if (presenter == null) {
             // no cached one found, create a new one
