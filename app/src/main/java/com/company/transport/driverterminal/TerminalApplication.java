@@ -1,7 +1,6 @@
 package com.company.transport.driverterminal;
 
 import android.content.Context;
-import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 
 import com.company.transport.driverterminal.di.ApplicationComponent;
@@ -48,12 +47,6 @@ public class TerminalApplication extends DaggerApplication implements HasSupport
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
         appComponent = DaggerApplicationComponent.builder().application(this).build();
         return appComponent;
-    }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
     }
 
     public static PresenterCache getPresenterCache() {

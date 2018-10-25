@@ -27,8 +27,17 @@
             android:theme="@style/AppTheme.NoActionBar.BlackStatusBar"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.main.view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing|stateUnspecified" />
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".ui.main.view.MainActivity">
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.main.view.MainActivity" />
+        </activity>
     </application>
 </manifest>

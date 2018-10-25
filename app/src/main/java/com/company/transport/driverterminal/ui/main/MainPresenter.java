@@ -18,6 +18,9 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void attachView(MainContract.View view, boolean isNew) {
         this.view = view;
+        if (!isNew) {
+            view.setCurrentPagerItem(currentPagerItem);
+        }
     }
 
     @Override
@@ -27,11 +30,6 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void stop() {
-    }
-
-    @Override
-    public int getCurrentPagerItem() {
-        return currentPagerItem;
     }
 
     @Override

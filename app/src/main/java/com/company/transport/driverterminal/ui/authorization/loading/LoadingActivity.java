@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.company.transport.driverterminal.R;
 import com.company.transport.driverterminal.ui.authorization.AuthorizationActivity;
-import com.company.transport.driverterminal.ui.main.MainActivity;
+import com.company.transport.driverterminal.ui.main.view.MainActivity;
 
 import javax.inject.Inject;
 

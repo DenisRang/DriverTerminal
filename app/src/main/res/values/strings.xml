@@ -1,14 +1,23 @@
 <resources>
     <string name="app_name">Driver terminal</string>
     <string name="action_sign_in">Sign in</string>
+
     <string name="msg_password">Password</string>
     <string name="msg_login">Login</string>
     <string name="msg_no_login">No login entered</string>
     <string name="msg_wrong_data">Incorrect login or password</string>
     <string name="msg_poor_connection">Problem with network</string>
     <string name="msg_no_password">No password entered</string>
-    <string name="msg_no_connection">No internet connection</string>
+    <string name="msg_no_internet">No internet connection</string>
     <string name="msg_loading_dialog">Loading, wait please...</string>
+    <string name="msg_no_parcel_groups">No parcel groups</string>
+
+    <string name="title_incoming_tab">Incoming</string>
+    <string name="title_completed_tab">Completed</string>
+    <string name="title_settings_status">Status online</string>
+    <string name="title_settings_notifications">Notifications</string>
+    <string name="title_settings_lod_out">Log out</string>
+    <string name="title_activity_settings">Settings</string>
 
 
 </resources>

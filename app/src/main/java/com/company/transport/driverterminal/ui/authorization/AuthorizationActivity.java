@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.company.transport.driverterminal.R;
-import com.company.transport.driverterminal.ui.main.MainActivity;
+import com.company.transport.driverterminal.ui.main.view.MainActivity;
 
 import javax.inject.Inject;
 
@@ -141,7 +141,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
 
     @Override
     public void showNoConnection() {
-        Toast.makeText(this, getString(R.string.msg_no_connection), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.msg_no_internet), Toast.LENGTH_LONG).show();
     }
 
     @Override
