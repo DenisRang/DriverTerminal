@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.company.transport.driverterminal.ui.main.parcelGroups.TempFragment;
+import com.company.transport.driverterminal.ui.main.parcels.view.ParcelsFragment;
 
 public class ParcelStatePagerAdapter extends FragmentStatePagerAdapter {
     public ParcelStatePagerAdapter(FragmentManager fm) {
@@ -18,7 +18,7 @@ public class ParcelStatePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        return (i == 0) ? new TempFragment() : new TempFragment();
+        return (i == 0) ? new ParcelsFragment() : new ParcelsFragment();
     }
 
     @Override

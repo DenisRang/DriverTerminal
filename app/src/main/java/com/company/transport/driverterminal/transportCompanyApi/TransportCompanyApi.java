@@ -1,32 +1,16 @@
 package com.company.transport.driverterminal.transportCompanyApi;
 
-import com.company.transport.driverterminal.transportCompanyApi.responseAuthorization.AuthorizationResponseParams;
-import com.company.transport.driverterminal.transportCompanyApi.responseAuthorization.Success;
+import com.company.transport.driverterminal.transportCompanyApi.parcelListResponse.Parcel;
 
-import java.util.concurrent.Callable;
+import java.util.List;
+import java.util.Map;
 
-public class TransportCompanyApi implements Callable<AuthorizationResponseParams> {
-    String login;
-    String password;
+import io.reactivex.Single;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.QueryMap;
 
-    public TransportCompanyApi(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
-
-    AuthorizationResponseParams authorize() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if (login.equals("demo") && password.equals("1")) return new AuthorizationResponseParams(new Success("good"));
-        else return null;
-    }
-
-
-    @Override
-    public AuthorizationResponseParams call() throws Exception {
-        return authorize();
-    }
+public interface TransportCompanyApi {
+    @GET("api/v1/parcels")
+    Single<List<Parcel>> getParcelList();
 }

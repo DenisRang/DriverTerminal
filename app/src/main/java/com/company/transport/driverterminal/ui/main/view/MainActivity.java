@@ -31,11 +31,14 @@ public class MainActivity extends BaseActivityView<MainPresenter> implements Mai
     @BindView(R.id.pager)
     ViewPager viewPager;
 
+    public MainActivity(){
+        //required
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        super.onCreate(savedInstanceState);
         attachConfiguredViewToPresenter();
 
         setSupportActionBar(toolbar);

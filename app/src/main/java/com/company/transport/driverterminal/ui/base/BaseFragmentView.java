@@ -1,19 +1,17 @@
 package com.company.transport.driverterminal.ui.base;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.support.v4.app.Fragment;
 
 import com.company.transport.driverterminal.TerminalApplication;
 import com.company.transport.driverterminal.utils.PresenterCache;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
+import dagger.android.support.AndroidSupportInjection;
 
-
-public abstract class BaseActivityView<T extends BasePresenter> extends BaseActivity implements BaseView {
+public abstract class BaseFragmentView<T extends BasePresenter> extends BaseFragment implements BaseView {
 
     @Inject
     protected T presenter;
@@ -22,11 +20,18 @@ public abstract class BaseActivityView<T extends BasePresenter> extends BaseActi
     private boolean isRestoredPresenter;
 
     @Override
+    public void onAttach(Context context) {
+        presenterCache = TerminalApplication.getPresenterCache();
+        restoreOrCreatePresenter();
+        super.onAttach(context);
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
-        if (!isChangingConfigurations()) {
-            // activity is stopped normally, remove the cached presenter so it's not cached
-            // even if activity gets killed
+        if (!getActivity().isChangingConfigurations()) {
+            // fragment is stopped normally, remove the cached presenter so it's not cached
+            // even if fragment gets killed
             onStopNormally();
             presenterCache.removePresenter(presenter);
             presenter.stop();
@@ -36,14 +41,12 @@ public abstract class BaseActivityView<T extends BasePresenter> extends BaseActi
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         presenter.detachView();
     }
 
     protected void attachConfiguredViewToPresenter() {
-        presenterCache = TerminalApplication.getPresenterCache();
-        restoreOrCreatePresenter();
         presenter.attachView(this, !isRestoredPresenter);
     }
 
@@ -62,7 +65,7 @@ public abstract class BaseActivityView<T extends BasePresenter> extends BaseActi
         if (presenter == null) {
             // no cached one found, create a new one
             isRestoredPresenter = false;
-            AndroidInjection.inject(this);
+            AndroidSupportInjection.inject(this);
             presenterCache.putPresenter(getClass().getName(), presenter);
         }
     }
