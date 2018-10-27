@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
+import timber.log.Timber;
 
 public abstract class BaseFragmentView<T extends BasePresenter> extends BaseFragment implements BaseView {
 
@@ -21,6 +22,7 @@ public abstract class BaseFragmentView<T extends BasePresenter> extends BaseFrag
 
     @Override
     public void onAttach(Context context) {
+        Timber.d("onAttach");
         presenterCache = TerminalApplication.getPresenterCache();
         restoreOrCreatePresenter();
         super.onAttach(context);

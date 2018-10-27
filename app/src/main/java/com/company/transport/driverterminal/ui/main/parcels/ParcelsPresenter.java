@@ -29,6 +29,7 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
     public void attachView(ParcelsContract.View view, boolean isNew) {
         this.view = view;
         if (isNew) {
+            view.showProgressBar();
             getParcels();
         } else {
             view.notifyParcelsChanged();
@@ -52,7 +53,6 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
         if (view == null) return;
 
         if (networkManager.isConnected()) {
-            view.showProgressBar();
             disposables.add(model.downloadParcels()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -69,8 +69,8 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
                                 }
                             },
                             (Throwable error) -> {
-                                view.showError(error.toString());
                                 view.hideProgressBar();
+                                view.showError(error.toString());
                             }
                     ));
         } else {
@@ -88,10 +88,10 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
         parcelView.setAddressTextView(parcel.getDestinationAddress());
         parcelView.setTimeTextView(parcel.getDeliveryTime());
         parcelView.setWeightTextView(parcel.getWeight());
-//        parcelView.setVolumeTextView(String.format("%s x %s x %s",
-//                parcel.getWidth(),
-//                parcel.getLength(),
-//                parcel.getHeight()));
+        parcelView.setVolumeTextView(String.format("%s x %s x %s",
+                parcel.getWidth(),
+                parcel.getLength(),
+                parcel.getHeight()));
         parcelView.setParcelListener(this);
     }
 

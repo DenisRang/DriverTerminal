@@ -43,6 +43,17 @@ public class Parcel {
     @SerializedName("deleted_at")
     private Object deletedAt;
 
+    public Parcel(Integer id, String height, String width, String length, String weight, String destinationAddress, String deliveryTime,String state) {
+        this.id = id;
+        this.height = height;
+        this.width = width;
+        this.length = length;
+        this.weight = weight;
+        this.destinationAddress = destinationAddress;
+        this.deliveryTime = deliveryTime;
+        this.state = state;
+    }
+
     public Integer getId() {
         return id;
     }

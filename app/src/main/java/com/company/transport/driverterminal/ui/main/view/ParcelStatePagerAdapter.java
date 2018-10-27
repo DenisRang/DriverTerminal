@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.company.transport.driverterminal.di.qualifiers.IncomingParcelsPresenter;
+import com.company.transport.driverterminal.ui.main.parcels.ParcelsContract;
 import com.company.transport.driverterminal.ui.main.parcels.view.ParcelsFragment;
 
 public class ParcelStatePagerAdapter extends FragmentStatePagerAdapter {

@@ -13,23 +13,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.company.transport.driverterminal.R;
+import com.company.transport.driverterminal.di.qualifiers.IncomingParcelsPresenter;
 import com.company.transport.driverterminal.ui.base.BaseFragmentView;
 import com.company.transport.driverterminal.ui.main.parcels.ParcelsContract;
 import com.company.transport.driverterminal.ui.main.parcels.ParcelsPresenter;
+import com.company.transport.driverterminal.ui.main.parcels.ParcelsType;
 
 import java.util.Objects;
 
 import butterknife.BindView;
+import timber.log.Timber;
 
 public class ParcelsFragment extends BaseFragmentView<ParcelsContract.Presenter> implements ParcelsContract.View {
     @BindView(R.id.recycler_parcel_groups)
     protected RecyclerView recyclerView;
     @BindView(R.id.progress_bar_center)
-    ProgressBar progressBar;
+    protected ProgressBar progressBar;
     @BindView(R.id.text_empty_view)
-    TextView emptyView;
+    protected TextView emptyView;
 
     private ParcelsAdapter parcelsAdapter;
+
+//    public static ParcelsFragment newInstance(@ParcelsType int parcelsType) {
+//        switch (parcelsType){
+//            case ParcelsType.INCOMING:
+//                return new (@IncomingParcelsPresenter ParcelsFragment());
+//        }
+//        ParcelsFragment fragment = new ParcelsFragment();
+////        Bundle args = new Bundle();
+////        args.putSerializable(ARGUMENT_DOCUMENT_GROUPS_TYPE, state);
+////        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +77,7 @@ public class ParcelsFragment extends BaseFragmentView<ParcelsContract.Presenter>
 
     @Override
     public void showNoInternetConnection() {
-        Toast.makeText(getContext(), getString(R.string.msg_no_internet), Toast.LENGTH_LONG).show();
+        emptyView.setText(R.string.msg_no_internet);
     }
 
     @Override
@@ -77,7 +92,7 @@ public class ParcelsFragment extends BaseFragmentView<ParcelsContract.Presenter>
 
     @Override
     public void hideNoParcels() {
-        emptyView.setVisibility(View.INVISIBLE);
+        emptyView.setVisibility(View.GONE);
     }
 
     private void setRecyclerView() {

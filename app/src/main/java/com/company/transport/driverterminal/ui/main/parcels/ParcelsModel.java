@@ -21,13 +21,18 @@ public class ParcelsModel implements ParcelsContract.Model {
 
     @Override
     public Single<Integer> downloadParcels() {
-        return api.getParcelList()
-                .map(parcelList -> {
-                    this.parcels.clear();
-                    this.parcels.addAll(parcelList);
-                    int size = parcels.size();
-                    return size;
-                });
+        parcels.clear();
+        parcels.add(new Parcel(16, "1.2", "2.3", "1", "5", "Main street", "14:20", "open"));
+        parcels.add(new Parcel(17, "1.2", "2.3", "1", "5", "Main street", "14:20", "open"));
+        parcels.add(new Parcel(18, "1.2", "2.3", "1", "5", "Main street", "14:20", "open"));
+        return Single.just(parcels.size());
+//        return api.getParcelList()
+//                .map(parcelList -> {
+//                    this.parcels.clear();
+//                    this.parcels.addAll(parcelList);
+//                    int size = parcels.size();
+//                    return size;
+//                });
     }
 
     @Override

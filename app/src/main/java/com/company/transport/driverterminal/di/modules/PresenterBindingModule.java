@@ -2,6 +2,8 @@ package com.company.transport.driverterminal.di.modules;
 
 import com.company.transport.driverterminal.di.ActivityScope;
 import com.company.transport.driverterminal.di.FragmentScope;
+import com.company.transport.driverterminal.di.qualifiers.CompletedParcelsPresenter;
+import com.company.transport.driverterminal.di.qualifiers.IncomingParcelsPresenter;
 import com.company.transport.driverterminal.ui.authorization.AuthorizationContract;
 import com.company.transport.driverterminal.ui.authorization.AuthorizationPresenter;
 import com.company.transport.driverterminal.ui.authorization.loading.LoadingContract;
@@ -32,5 +34,4 @@ public abstract class PresenterBindingModule {
     @Binds
     @FragmentScope
     public abstract ParcelsContract.Presenter bindParcelsPresenter(ParcelsPresenter presenter);
-
 }

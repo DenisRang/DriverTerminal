@@ -58,7 +58,7 @@ public class ParcelViewHolder extends RecyclerView.ViewHolder implements Parcels
     }
 
     @Override
-    @OnClick(R.id.layout_parcel)
+    @OnClick(R.id.card_parcel)
     public void onParcelClick() {
         listener.onParcelClick(this);
     }
