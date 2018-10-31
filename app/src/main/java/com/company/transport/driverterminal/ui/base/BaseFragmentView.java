@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.company.transport.driverterminal.TerminalApplication;
+import com.company.transport.driverterminal.di.qualifiers.IncomingParcelsPresenter;
 import com.company.transport.driverterminal.utils.PresenterCache;
 
 import javax.inject.Inject;
@@ -60,6 +61,10 @@ public abstract class BaseFragmentView<T extends BasePresenter> extends BaseFrag
 
     }
 
+    protected void inject(){
+        AndroidSupportInjection.inject(this);
+    }
+
     private void restoreOrCreatePresenter() {
         isRestoredPresenter = true;
         // try to get a cached presenterd
@@ -67,7 +72,7 @@ public abstract class BaseFragmentView<T extends BasePresenter> extends BaseFrag
         if (presenter == null) {
             // no cached one found, create a new one
             isRestoredPresenter = false;
-            AndroidSupportInjection.inject(this);
+            inject();
             presenterCache.putPresenter(getClass().getName(), presenter);
         }
     }

@@ -15,7 +15,7 @@ public class ParcelsModel implements ParcelsContract.Model {
     private List<Parcel> parcels = new ArrayList<>();
 
     @Inject
-    ParcelsModel(TransportCompanyApiClient api) {
+    public ParcelsModel(TransportCompanyApiClient api) {
         this.api = api;
     }
 
