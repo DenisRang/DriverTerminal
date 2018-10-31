@@ -1,7 +1,8 @@
-package com.company.transport.driverterminal.ui.main.parcels.di;
+package com.company.transport.driverterminal.ui.main.parcels.di.modules;
 
 import android.content.Context;
 
+import com.company.transport.driverterminal.di.AppScope;
 import com.company.transport.driverterminal.di.FragmentScope;
 
 import dagger.Module;
@@ -16,7 +17,7 @@ public class ContextModule {
         this.context = context;
     }
 
-    @FragmentScope
+    @AppScope
     @Provides
     public Context context(){ return context.getApplicationContext(); }
 }

@@ -1,21 +1,15 @@
 package com.company.transport.driverterminal.ui.base;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
 import com.company.transport.driverterminal.TerminalApplication;
-import com.company.transport.driverterminal.di.qualifiers.IncomingParcelsPresenter;
 import com.company.transport.driverterminal.utils.PresenterCache;
 
-import javax.inject.Inject;
-
-import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
 import timber.log.Timber;
 
 public abstract class BaseFragmentView<T extends BasePresenter> extends BaseFragment implements BaseView {
 
-    @Inject
     protected T presenter;
 
     private PresenterCache presenterCache;

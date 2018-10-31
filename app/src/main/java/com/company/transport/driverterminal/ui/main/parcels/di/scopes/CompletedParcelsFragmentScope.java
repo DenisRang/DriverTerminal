@@ -1,4 +1,4 @@
-package com.company.transport.driverterminal.di;
+package com.company.transport.driverterminal.ui.main.parcels.di.scopes;
 
 import javax.inject.Scope;
 
