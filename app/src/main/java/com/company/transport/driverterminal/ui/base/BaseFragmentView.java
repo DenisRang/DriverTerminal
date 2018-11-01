@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.company.transport.driverterminal.TerminalApplication;
+import com.company.transport.driverterminal.ui.main.parcels.ParcelsContract;
+import com.company.transport.driverterminal.utils.NetworkManager;
 import com.company.transport.driverterminal.utils.PresenterCache;
 
 import javax.inject.Inject;
@@ -63,12 +65,20 @@ public abstract class BaseFragmentView<T extends BasePresenter> extends BaseFrag
     private void restoreOrCreatePresenter() {
         isRestoredPresenter = true;
         // try to get a cached presenterd
-        presenter = presenterCache.getPresenter(getClass().getName());
+        presenter = presenterCache.getPresenter(getPresenterSavingName());
         if (presenter == null) {
             // no cached one found, create a new one
             isRestoredPresenter = false;
-            AndroidSupportInjection.inject(this);
+            inject();
             presenterCache.putPresenter(getClass().getName(), presenter);
         }
+    }
+
+    protected String getPresenterSavingName() {
+        return getClass().getName();
+    }
+
+    protected void inject() {
+        AndroidSupportInjection.inject(this);
     }
 }

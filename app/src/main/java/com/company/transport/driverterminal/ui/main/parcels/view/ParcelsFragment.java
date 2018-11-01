@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.company.transport.driverterminal.R;
-import com.company.transport.driverterminal.di.qualifiers.IncomingParcelsPresenter;
 import com.company.transport.driverterminal.ui.base.BaseFragmentView;
 import com.company.transport.driverterminal.ui.main.parcels.ParcelsContract;
 import com.company.transport.driverterminal.ui.main.parcels.ParcelsPresenter;
@@ -22,9 +21,10 @@ import com.company.transport.driverterminal.ui.main.parcels.ParcelsType;
 import java.util.Objects;
 
 import butterknife.BindView;
-import timber.log.Timber;
 
 public class ParcelsFragment extends BaseFragmentView<ParcelsContract.Presenter> implements ParcelsContract.View {
+    private static final String ARGUMENT_PARCELS_TYPE = "parcels type";
+
     @BindView(R.id.recycler_parcel_groups)
     protected RecyclerView recyclerView;
     @BindView(R.id.progress_bar_center)
@@ -34,17 +34,18 @@ public class ParcelsFragment extends BaseFragmentView<ParcelsContract.Presenter>
 
     private ParcelsAdapter parcelsAdapter;
 
-//    public static ParcelsFragment newInstance(@ParcelsType int parcelsType) {
-//        switch (parcelsType){
-//            case ParcelsType.INCOMING:
-//                return new (@IncomingParcelsPresenter ParcelsFragment());
-//        }
-//        ParcelsFragment fragment = new ParcelsFragment();
-////        Bundle args = new Bundle();
-////        args.putSerializable(ARGUMENT_DOCUMENT_GROUPS_TYPE, state);
-////        fragment.setArguments(args);
-//        return fragment;
-//    }
+    public static ParcelsFragment newInstance(@ParcelsType int parcelsType) {
+        ParcelsFragment fragment = new ParcelsFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARGUMENT_PARCELS_TYPE, parcelsType);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    protected String getPresenterSavingName() {
+        return super.getPresenterSavingName() + String.valueOf(getArguments().getInt(ARGUMENT_PARCELS_TYPE));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

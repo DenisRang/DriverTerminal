@@ -19,7 +19,7 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
 
 
     @Inject
-    ParcelsPresenter(NetworkManager networkManager,
+    public ParcelsPresenter(NetworkManager networkManager,
                      ParcelsContract.Model model) {
         this.networkManager = networkManager;
         this.model = model;
