@@ -24,6 +24,8 @@ public interface ParcelsContract {
         void showNoParcels();
 
         void hideNoParcels();
+
+        @ParcelsType int getParcelsType();
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -32,14 +34,17 @@ public interface ParcelsContract {
         void onBindParcel(ParcelViewHolder parcelView, int position);
 
         int getParcelCount();
+
     }
 
     interface Model extends BaseModel {
-        Single<Integer> downloadParcels();
+
+        Single<Integer> downloadParcels(@ParcelsType int parcelType);
 
         Parcel getParcel(int position);
 
         int getParcelCount();
+
     }
 
     interface ParcelView {

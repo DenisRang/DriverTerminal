@@ -62,6 +62,14 @@ public abstract class BaseFragmentView<T extends BasePresenter> extends BaseFrag
 
     }
 
+    protected String getPresenterSavingName() {
+        return getClass().getName();
+    }
+
+    protected void inject() {
+        AndroidSupportInjection.inject(this);
+    }
+
     private void restoreOrCreatePresenter() {
         isRestoredPresenter = true;
         // try to get a cached presenterd
@@ -72,13 +80,5 @@ public abstract class BaseFragmentView<T extends BasePresenter> extends BaseFrag
             inject();
             presenterCache.putPresenter(getClass().getName(), presenter);
         }
-    }
-
-    protected String getPresenterSavingName() {
-        return getClass().getName();
-    }
-
-    protected void inject() {
-        AndroidSupportInjection.inject(this);
     }
 }

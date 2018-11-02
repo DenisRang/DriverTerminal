@@ -20,11 +20,20 @@ public class ParcelsModel implements ParcelsContract.Model {
     }
 
     @Override
-    public Single<Integer> downloadParcels() {
-        parcels.clear();
-        parcels.add(new Parcel(16, "1.2", "2.3", "1", "5", "Main street", "14:20", "open"));
-        parcels.add(new Parcel(17, "1.2", "2.3", "1", "5", "Main street", "14:20", "open"));
-        parcels.add(new Parcel(18, "1.2", "2.3", "1", "5", "Main street", "14:20", "open"));
+    public Single<Integer> downloadParcels(@ParcelsType int parcelType) {
+        switch (parcelType){
+            case ParcelsType.INCOMING:
+                parcels.clear();
+                parcels.add(new Parcel(16, "1.2", "2.3", "1", "5", "Main street", "14:20", "open"));
+                parcels.add(new Parcel(17, "2", "2", "1.7", "7", "Pushkin street", "20:00", "open"));
+                parcels.add(new Parcel(18, "4", "0.4", "2", "4", "Lermontov street", "8:00", "open"));
+            break;
+            case ParcelsType.COMPLETED:
+                parcels.clear();
+                parcels.add(new Parcel(3, "1.2", "2.3", "1", "0.45", "Big street", "14:20", "open"));
+                parcels.add(new Parcel(5, "2", "2", "1.7", "7", "Red street", "20:00", "open"));
+                break;
+        }
         return Single.just(parcels.size());
 //        return api.getParcelList()
 //                .map(parcelList -> {

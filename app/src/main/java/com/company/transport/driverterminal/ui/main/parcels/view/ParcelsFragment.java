@@ -44,7 +44,7 @@ public class ParcelsFragment extends BaseFragmentView<ParcelsContract.Presenter>
 
     @Override
     protected String getPresenterSavingName() {
-        return super.getPresenterSavingName() + String.valueOf(getArguments().getInt(ARGUMENT_PARCELS_TYPE));
+        return super.getPresenterSavingName() + String.valueOf(getParcelsType());
     }
 
     @Override
@@ -79,6 +79,7 @@ public class ParcelsFragment extends BaseFragmentView<ParcelsContract.Presenter>
     @Override
     public void showNoInternetConnection() {
         emptyView.setText(R.string.msg_no_internet);
+        emptyView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -94,6 +95,11 @@ public class ParcelsFragment extends BaseFragmentView<ParcelsContract.Presenter>
     @Override
     public void hideNoParcels() {
         emptyView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public @ParcelsType int getParcelsType() {
+        return getArguments().getInt(ARGUMENT_PARCELS_TYPE);
     }
 
     private void setRecyclerView() {

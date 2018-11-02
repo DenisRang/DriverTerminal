@@ -1,5 +1,7 @@
 package com.company.transport.driverterminal.ui.main.parcels;
 
+import android.annotation.SuppressLint;
+
 import com.company.transport.driverterminal.transportCompanyApi.parcelListResponse.Parcel;
 import com.company.transport.driverterminal.ui.main.parcels.view.ParcelViewHolder;
 import com.company.transport.driverterminal.utils.NetworkManager;
@@ -20,7 +22,7 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
 
     @Inject
     public ParcelsPresenter(NetworkManager networkManager,
-                     ParcelsContract.Model model) {
+                            ParcelsContract.Model model) {
         this.networkManager = networkManager;
         this.model = model;
     }
@@ -53,7 +55,7 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
         if (view == null) return;
 
         if (networkManager.isConnected()) {
-            disposables.add(model.downloadParcels()
+            disposables.add(model.downloadParcels(view.getParcelsType())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
