@@ -3,6 +3,8 @@ package com.company.transport.driverterminal.di;
 import com.company.transport.driverterminal.TerminalApplication;
 import com.company.transport.driverterminal.di.modules.ActivityFragmentBindingModule;
 import com.company.transport.driverterminal.di.modules.ApplicationModule;
+import com.company.transport.driverterminal.transportCompanyApi.TransportCompanyApiClient;
+import com.company.transport.driverterminal.utils.NetworkManager;
 import com.company.transport.driverterminal.utils.PresenterCache;
 
 import dagger.BindsInstance;
@@ -32,4 +34,10 @@ public interface ApplicationComponent extends AndroidInjector<TerminalApplicatio
     }
 
     PresenterCache getPresenterCache();
+
+    NetworkManager networkManager();
+
+    TransportCompanyApiClient client();
+
+
 }

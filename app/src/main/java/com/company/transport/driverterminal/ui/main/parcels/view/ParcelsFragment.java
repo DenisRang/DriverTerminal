@@ -13,18 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.company.transport.driverterminal.R;
+import com.company.transport.driverterminal.TerminalApplication;
 import com.company.transport.driverterminal.di.ApplicationComponent;
 import com.company.transport.driverterminal.di.DaggerApplicationComponent;
 import com.company.transport.driverterminal.ui.base.BaseFragmentView;
 import com.company.transport.driverterminal.ui.main.parcels.ParcelsContract;
 import com.company.transport.driverterminal.ui.main.parcels.ParcelsType;
-import com.company.transport.driverterminal.ui.main.parcels.di.components.ApplicationComponentForParcels;
-import com.company.transport.driverterminal.ui.main.parcels.di.components.CompletedParcelsComponent;
-import com.company.transport.driverterminal.ui.main.parcels.di.components.DaggerApplicationComponentForParcels;
-import com.company.transport.driverterminal.ui.main.parcels.di.components.DaggerCompletedParcelsComponent;
-import com.company.transport.driverterminal.ui.main.parcels.di.components.DaggerIncomingParcelsComponent;
 import com.company.transport.driverterminal.ui.main.parcels.di.components.DaggerParcelsComponent;
-import com.company.transport.driverterminal.ui.main.parcels.di.components.IncomingParcelsComponent;
 import com.company.transport.driverterminal.ui.main.parcels.di.components.ParcelsComponent;
 import com.company.transport.driverterminal.ui.main.parcels.di.modules.ContextModule;
 
@@ -53,37 +48,6 @@ public class ParcelsFragment extends BaseFragmentView<ParcelsContract.Presenter>
     }
 
     @Override
-    protected String getPresenterSavingName() {
-        return super.getPresenterSavingName() + String.valueOf(getParcelsType());
-    }
-
-    @Override
-    protected void inject() {
-        ApplicationComponentForParcels appComponent = DaggerApplicationComponentForParcels.builder()
-                .contextModule(new ContextModule(getContext()))
-                .build();
-        ParcelsComponent parcelsComponent = DaggerParcelsComponent.builder()
-                .applicationComponentForParcels(appComponent)
-                .build();
-        @ParcelsType int parcelsType = getArguments().getInt(ARGUMENT_PARCELS_TYPE);
-        switch (parcelsType) {
-            case ParcelsType.INCOMING:
-                IncomingParcelsComponent incomingParcelsComponent = DaggerIncomingParcelsComponent.builder()
-                        .parcelsComponent(parcelsComponent)
-                        .build();
-                presenter = incomingParcelsComponent.getIncomingParcelPresenter();
-                return;
-            case ParcelsType.COMPLETED:
-                CompletedParcelsComponent completedParcelsComponent = DaggerCompletedParcelsComponent.builder()
-                        .parcelsComponent(parcelsComponent)
-                        .build();
-                presenter = completedParcelsComponent.getCompletedParcelPresenter();
-                return;
-        }
-    }
-
-
-    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_parcels, container, false);
     }
@@ -93,6 +57,31 @@ public class ParcelsFragment extends BaseFragmentView<ParcelsContract.Presenter>
         super.onViewCreated(view, savedInstanceState);
         setRecyclerView();
         attachConfiguredViewToPresenter();
+    }
+
+    @Override
+    protected String getPresenterSavingName() {
+        return super.getPresenterSavingName() + String.valueOf(getParcelsType());
+    }
+
+    @Override
+    protected void inject() {
+       // ApplicationComponent appComponent = TerminalApplication.getAppComponent();
+        ApplicationComponent appComponent = DaggerApplicationComponent.builder().application((TerminalApplication) getActivity().getApplication()).build();
+
+        ParcelsComponent parcelsComponent = DaggerParcelsComponent.builder()
+                .applicationComponent(appComponent)
+                .build();
+
+        @ParcelsType int parcelsType = getArguments().getInt(ARGUMENT_PARCELS_TYPE);
+        switch (parcelsType) {
+            case ParcelsType.INCOMING:
+                parcelsComponent.inject(this);
+                return;
+            case ParcelsType.COMPLETED:
+                parcelsComponent.inject(this);
+                return;
+        }
     }
 
     @Override
@@ -134,7 +123,8 @@ public class ParcelsFragment extends BaseFragmentView<ParcelsContract.Presenter>
     }
 
     @Override
-    public @ParcelsType int getParcelsType() {
+    public @ParcelsType
+    int getParcelsType() {
         return getArguments().getInt(ARGUMENT_PARCELS_TYPE);
     }
 

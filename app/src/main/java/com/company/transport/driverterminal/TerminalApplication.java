@@ -56,6 +56,10 @@ public class TerminalApplication extends DaggerApplication implements HasSupport
         MultiDex.install(this);
     }
 
+    public static ApplicationComponent getAppComponent() {
+        return appComponent;
+    }
+
     public static PresenterCache getPresenterCache() {
         return appComponent.getPresenterCache();
     }
