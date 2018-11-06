@@ -53,7 +53,7 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
         if (view == null) return;
 
         if (networkManager.isConnected()) {
-            disposables.add(model.downloadParcels()
+            disposables.add(model.downloadParcels(view.getParcelsType())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
