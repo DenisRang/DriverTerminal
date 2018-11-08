@@ -86,7 +86,7 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
     @Override
     public void onBindParcel(ParcelViewHolder parcelView, int position) {
         Parcel parcel = model.getParcel(position);
-        parcelView.setTitleTextView(parcel.getId().toString());
+        parcelView.setTitleTextView(String.format("Parcel #%d", parcel.getId()));
         parcelView.setAddressTextView(parcel.getDestinationAddress());
         parcelView.setTimeTextView(parcel.getDeliveryTime());
         parcelView.setWeightTextView(parcel.getWeight());
