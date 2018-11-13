@@ -1,6 +1,8 @@
 package com.company.transport.driverterminal.ui.main.parcels;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 
 import com.company.transport.driverterminal.transportCompanyApi.parcelListResponse.Parcel;
 import com.company.transport.driverterminal.ui.main.parcels.view.ParcelViewHolder;
@@ -11,6 +13,9 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+
+import static android.support.v4.content.ContextCompat.createDeviceProtectedStorageContext;
+import static android.support.v4.content.ContextCompat.startActivity;
 
 public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHolder.ParcelListener {
 
@@ -104,6 +109,9 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
 
     @Override
     public void onParcelClick(ParcelsContract.ParcelView parcelView) {
-
+        String uri = "http://maps.google.com/maps?saddr=" + "55.8004929,48.8383647"+"&daddr="+"55.8004929,48.8383647";
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+        parcelView.navigateToGoogleMaps(intent);
     }
 }
