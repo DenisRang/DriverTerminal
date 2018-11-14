@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 public class AuthorizationManager {
     private final String PREF_LOGIN = "LOGIN";
+
     private final String PREF_PASSWORD = "PASSWORD";
     private final String PREF_AUTH_TOKEN = "PREF_AUTH_TOKEN";
 
