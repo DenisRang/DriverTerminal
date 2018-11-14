@@ -1,5 +1,7 @@
 package com.company.transport.driverterminal.ui.main.parcels.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -66,6 +68,11 @@ public class ParcelViewHolder extends RecyclerView.ViewHolder implements Parcels
     @Override
     public void setParcelListener(ParcelListener listener) {
         this.listener = listener;
+    }
+
+    @Override
+    public void navigateToGoogleMaps(Intent intent) {
+        itemView.getContext().startActivity(intent);
     }
 
     public interface ParcelListener {

@@ -1,5 +1,8 @@
 package com.company.transport.driverterminal.ui.main.parcels;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.company.transport.driverterminal.transportCompanyApi.parcelListResponse.Parcel;
 import com.company.transport.driverterminal.ui.base.BaseModel;
 import com.company.transport.driverterminal.ui.base.BasePresenter;
@@ -61,5 +64,7 @@ public interface ParcelsContract {
         void onParcelClick();
 
         void setParcelListener(ParcelViewHolder.ParcelListener listener);
+
+        void navigateToGoogleMaps(Intent intent);
     }
 }
