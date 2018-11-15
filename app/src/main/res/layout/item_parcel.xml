@@ -80,6 +80,7 @@
         <TextView
             android:id="@+id/text_volume"
             android:layout_width="85dp"
+            android:textSize="10dp"
             android:layout_height="26dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
