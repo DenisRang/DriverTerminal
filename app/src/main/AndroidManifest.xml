@@ -4,6 +4,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
     <application
         android:name=".TerminalApplication"
@@ -26,6 +29,8 @@
             android:name=".ui.authorization.AuthorizationActivity"
             android:theme="@style/AppTheme.NoActionBar.BlackStatusBar"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
+        <service
+            android:name=".ui.main.map.DriverLocationSender"/>
         <activity
             android:name=".ui.main.view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -39,5 +44,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.main.view.MainActivity" />
         </activity>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 </manifest>
