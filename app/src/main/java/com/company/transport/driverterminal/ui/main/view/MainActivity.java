@@ -41,6 +41,7 @@ public class MainActivity extends BaseActivityView<MainPresenter> implements Mai
         super.onCreate(savedInstanceState);
         attachConfiguredViewToPresenter();
 
+
         setSupportActionBar(toolbar);
         viewPager.setAdapter(new ParcelStatePagerAdapter(getSupportFragmentManager()));
         tabsLayout.setupWithViewPager(viewPager);

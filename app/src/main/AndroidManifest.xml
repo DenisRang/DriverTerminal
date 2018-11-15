@@ -39,5 +39,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.main.view.MainActivity" />
         </activity>
+        <service
+            android:name="com.company.transport.driverterminal.notifications.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 </manifest>
