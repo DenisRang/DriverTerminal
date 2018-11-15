@@ -1,5 +1,6 @@
 package com.company.transport.driverterminal.ui.main.map;
 
+import android.app.ExpandableListActivity;
 import android.app.IntentService;
 import android.app.Service;
 import android.content.Context;
@@ -27,6 +28,8 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +77,15 @@ public class DriverLocationSender extends Service {
             lon = mLastLocation.getLongitude();
             // Create a new HttpClient and Post Header
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://server.com:port/endpoint");
+            URI uri;
+            try {
+                uri = new URI("http", "vk.com", "/endpoint", null, null);
+
+            }catch (URISyntaxException e) {
+                Log.e(TAG, e.toString());
+                return;
+            }
+            HttpPost httppost = new HttpPost(uri);
             try {
                 // Add your data
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
@@ -84,11 +95,14 @@ public class DriverLocationSender extends Service {
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
                 // Execute HTTP Post Request
-                HttpResponse response = httpclient.execute(httppost);
+                try {
+                    HttpResponse response = httpclient.execute(httppost);
+                } catch (Exception e){
+                    Log.e(TAG, "err in sending post request: " + e.toString());
+                }
 
-            } catch (ClientProtocolException e) {
-                Log.e(TAG, e.toString());
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 Log.e(TAG, e.toString());
             }
         }
