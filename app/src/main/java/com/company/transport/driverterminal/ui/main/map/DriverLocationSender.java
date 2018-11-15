@@ -1,13 +1,17 @@
 package com.company.transport.driverterminal.ui.main.map;
 
+import android.Manifest;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import org.apache.http.HttpResponse;
@@ -79,7 +83,8 @@ public class DriverLocationSender extends Service {
                 HttpClient httpclient = new DefaultHttpClient();
                 URI uri;
                 try {
-                    uri = new URI("http", "f6d1285.ngrok.io", "/api/v1/parcels/0/", null, null);
+                    //todo get truck number from some localstorage /api/v1/trucks/<id>/
+                    uri = new URI("http", "f6d1285.ngrok.io", "/api/v1/trucks/12/", null, null);
 
                 } catch (URISyntaxException e) {
                     Log.e(TAG, e.toString());
@@ -90,9 +95,8 @@ public class DriverLocationSender extends Service {
                 httpput.addHeader("Accept", "application/json");
                 httpput.addHeader("Content-Type", "application/x-www-form-urlencoded");
                 try {
-                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-                    nameValuePairs.add(new BasicNameValuePair("state", "Sent"));
-                    nameValuePairs.add(new BasicNameValuePair("location_address", "SomeAddr"));
+                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+                    nameValuePairs.add(new BasicNameValuePair("state", "Online"));
                     nameValuePairs.add(new BasicNameValuePair("location_latitude", Double.toString(objects[0])));
                     nameValuePairs.add(new BasicNameValuePair("location_longitude", Double.toString(objects[1])));
                     //todo also send user token
