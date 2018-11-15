@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.company.transport.driverterminal.R;
+import com.company.transport.driverterminal.transportCompanyApi.parcelListResponse.Parcel;
 import com.company.transport.driverterminal.ui.main.parcels.ParcelsContract;
 
 import butterknife.BindView;
@@ -28,6 +29,7 @@ public class ParcelViewHolder extends RecyclerView.ViewHolder implements Parcels
     protected TextView volumeTextView;
 
     private ParcelListener listener;
+    private Parcel parcel;
 
     protected ParcelViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -73,6 +75,16 @@ public class ParcelViewHolder extends RecyclerView.ViewHolder implements Parcels
     @Override
     public void navigateToGoogleMaps(Intent intent) {
         itemView.getContext().startActivity(intent);
+    }
+
+    @Override
+    public void setParcel(Parcel parcel) {
+        this.parcel=parcel;
+    }
+
+    @Override
+    public Parcel getParcel() {
+        return parcel;
     }
 
     public interface ParcelListener {

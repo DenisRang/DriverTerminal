@@ -127,6 +127,11 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
         loadingDialog.dismiss();
     }
 
+    @Override
+    public void showError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
     @OnTouch(R.id.layout_container)
     public boolean hideKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);

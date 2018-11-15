@@ -16,6 +16,8 @@ public interface AuthorizationContract {
 
         void dismissLoadingDialog();
 
+        void showError(String message);
+
         void showLoginError();
 
         void showWrongEmail();

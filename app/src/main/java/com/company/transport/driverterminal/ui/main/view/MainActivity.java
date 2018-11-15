@@ -18,6 +18,7 @@ import com.company.transport.driverterminal.ui.SettingsActivity;
 import com.company.transport.driverterminal.ui.base.BaseActivityView;
 import com.company.transport.driverterminal.ui.main.MainContract;
 import com.company.transport.driverterminal.ui.main.MainPresenter;
+import com.company.transport.driverterminal.ui.main.map.DriverLocationSender;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +46,8 @@ public class MainActivity extends BaseActivityView<MainPresenter> implements Mai
         setSupportActionBar(toolbar);
         viewPager.setAdapter(new ParcelStatePagerAdapter(getSupportFragmentManager()));
         tabsLayout.setupWithViewPager(viewPager);
+        Intent sending = new Intent(this, DriverLocationSender.class);
+        startService(sending);
     }
 
     @Override

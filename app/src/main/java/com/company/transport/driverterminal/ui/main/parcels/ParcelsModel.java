@@ -4,6 +4,7 @@ import android.os.SystemClock;
 
 import com.company.transport.driverterminal.transportCompanyApi.TransportCompanyApiClient;
 import com.company.transport.driverterminal.transportCompanyApi.parcelListResponse.Parcel;
+import com.company.transport.driverterminal.utils.AuthorizationManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,39 +16,33 @@ import io.reactivex.Single;
 
 public class ParcelsModel implements ParcelsContract.Model {
     private TransportCompanyApiClient apiClient;
+    private String authToken;
     private List<Parcel> parcels = new ArrayList<>();
 
     @Inject
-    ParcelsModel(TransportCompanyApiClient apiClient) {
+    ParcelsModel(TransportCompanyApiClient apiClient, AuthorizationManager authorizationManager) {
         this.apiClient = apiClient;
+        authToken = authorizationManager.getAuthToken();
     }
 
     @Override
-    public Single<Integer> downloadParcels(@ParcelsType int parcelType)  {
-        return Single.fromCallable(()->{
-            SystemClock.sleep(2000);
-            switch (parcelType){
-                case ParcelsType.INCOMING:
-                    parcels.clear();
-                    parcels.add(new Parcel(16, "1.2", "2.3", "1", "5", "Main street", "14:20", "open"));
-                    parcels.add(new Parcel(17, "2", "2", "1.7", "7", "Pushkin street", "20:00", "open"));
-                    parcels.add(new Parcel(18, "4", "0.4", "2", "4", "Lermontov street", "8:00", "open"));
-                    break;
-                case ParcelsType.COMPLETED:
-                    parcels.clear();
-                    parcels.add(new Parcel(3, "1.2", "2.3", "1", "0.45", "Big street", "14:20", "open"));
-                    parcels.add(new Parcel(5, "2", "2", "1.7", "7", "Red street", "20:00", "open"));
-                    break;
-            }
-            return parcels.size();
-        });
-//        return apiClient.getParcelList()
-//                .map(parcelList -> {
-//                    this.parcels.clear();
-//                    this.parcels.addAll(parcelList);
-//                    int size = parcels.size();
-//                    return size;
-//                });
+    public Single<Integer> downloadParcels(@ParcelsType int parcelType) {
+        String state = null;
+        switch (parcelType) {
+            case ParcelsType.INCOMING:
+                state = "Processing";
+                break;
+            case ParcelsType.COMPLETED:
+                state = "Received";
+                break;
+        }
+        return apiClient.getParcelList(authToken, state)
+                .map(parcels -> {
+                    this.parcels.clear();
+                    this.parcels.addAll(parcels);
+                    int size = parcels.size();
+                    return size;
+                });
     }
 
     @Override

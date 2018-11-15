@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 import static android.support.v4.content.ContextCompat.createDeviceProtectedStorageContext;
 import static android.support.v4.content.ContextCompat.startActivity;
@@ -76,6 +77,7 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
                                 }
                             },
                             (Throwable error) -> {
+                                Timber.e(error.getMessage());
                                 view.hideProgressBar();
                                 view.showError(error.toString());
                             }
@@ -91,6 +93,7 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
     @Override
     public void onBindParcel(ParcelViewHolder parcelView, int position) {
         Parcel parcel = model.getParcel(position);
+        parcelView.setParcel(parcel);
         parcelView.setTitleTextView(String.format("Parcel #%d", parcel.getId()));
         parcelView.setAddressTextView(parcel.getDestinationAddress());
         parcelView.setTimeTextView(parcel.getDeliveryTime());
@@ -109,7 +112,8 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
 
     @Override
     public void onParcelClick(ParcelsContract.ParcelView parcelView) {
-        String uri = "http://maps.google.com/maps?saddr=" + "55.8004929,48.8383647"+"&daddr="+"55.8004929,48.8383647";
+        Parcel parcel = parcelView.getParcel();
+        String uri = "http://maps.google.com/maps?saddr=" + parcel.getOriginLatitude() + "," + parcel.getOriginLongitude() + "&daddr=" + parcel.getDestinationLatitude() + "," + parcel.getDestinationLongitude();
         Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
         intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
         parcelView.navigateToGoogleMaps(intent);

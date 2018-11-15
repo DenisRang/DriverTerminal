@@ -66,5 +66,9 @@ public interface ParcelsContract {
         void setParcelListener(ParcelViewHolder.ParcelListener listener);
 
         void navigateToGoogleMaps(Intent intent);
+
+        void setParcel(Parcel parcel);
+
+        Parcel getParcel();
     }
 }
