@@ -16,6 +16,20 @@ import android.util.Log;
 
 import com.google.android.gms.maps.MapView;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 public class DriverLocationSender extends Service {
     private static final String TAG = "DRIVERLOCATION";
 
@@ -29,12 +43,14 @@ public class DriverLocationSender extends Service {
         public LocationListener(String provider) {
             Log.e(TAG, "LocationListener " + provider);
             mLastLocation = new Location(provider);
+            sendLocation();
         }
 
         @Override
         public void onLocationChanged(Location location) {
             Log.e(TAG, "onLocationChanged: " + location);
             mLastLocation.set(location);
+            sendLocation();
         }
 
         @Override
@@ -50,6 +66,31 @@ public class DriverLocationSender extends Service {
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
             Log.e(TAG, "onStatusChanged: " + provider);
+        }
+
+        private void sendLocation() {
+            double alt, lon;
+            alt = mLastLocation.getAltitude();
+            lon = mLastLocation.getLongitude();
+            // Create a new HttpClient and Post Header
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost("http://server.com:port/endpoint");
+            try {
+                // Add your data
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+                nameValuePairs.add(new BasicNameValuePair("Altitude", Double.toString(alt)));
+                nameValuePairs.add(new BasicNameValuePair("Longitude", Double.toString(lon)));
+                //todo also send user token
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                // Execute HTTP Post Request
+                HttpResponse response = httpclient.execute(httppost);
+
+            } catch (ClientProtocolException e) {
+                Log.e(TAG, e.toString());
+            } catch (IOException e) {
+                Log.e(TAG, e.toString());
+            }
         }
     }
 
