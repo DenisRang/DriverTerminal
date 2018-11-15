@@ -72,10 +72,18 @@ public class AuthorizationPresenter implements AuthorizationContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(authResponse -> {
-                            authorizationManager.saveResponseAuthToken(authResponse.getSuccess().getToken());
-                            if (view != null) {
-                                view.dismissLoadingDialog();
-                                view.navigateToMainActivity();
+                            String authToken = authResponse.getAccessToken();
+                            String errorMsg = authResponse.getMessage();
+                            if (authToken != null) {
+                                authorizationManager.saveResponseAuthToken(authToken);
+                                if (view != null) {
+                                    view.dismissLoadingDialog();
+                                    view.navigateToMainActivity();
+                                }
+                            } else {
+                                if (errorMsg != null && view != null) {
+                                    view.showError(errorMsg);
+                                }
                             }
                         }, error -> {
                             if (view != null) {
