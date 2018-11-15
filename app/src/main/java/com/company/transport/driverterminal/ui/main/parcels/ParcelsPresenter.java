@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHolder.ParcelListener {
 
@@ -71,6 +72,7 @@ public class ParcelsPresenter implements ParcelsContract.Presenter, ParcelViewHo
                                 }
                             },
                             (Throwable error) -> {
+                                Timber.e(error.getMessage());
                                 view.hideProgressBar();
                                 view.showError(error.toString());
                             }
