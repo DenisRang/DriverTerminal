@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "198763787644",
+    "firebase_url": "https://driverterminal-c63f4.firebaseio.com",
+    "project_id": "driverterminal-c63f4",
+    "storage_bucket": "driverterminal-c63f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198763787644:android:789b2c8d458f535c",
+        "android_client_info": {
+          "package_name": "com.company.transport.driverterminal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198763787644-1g35kj495nmj9usjtq07krruhk6d3msi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.company.transport.driverterminal",
+            "certificate_hash": "486a34c13263ecbdf71dba0e694464946711afc9"
+          }
+        },
+        {
+          "client_id": "198763787644-217j1hg6m3vdo0oqtfakrq3vbr89hlsj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlE8jfL9dNCQkj4At2Lj_XjOqNgElI85M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198763787644-217j1hg6m3vdo0oqtfakrq3vbr89hlsj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
